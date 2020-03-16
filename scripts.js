@@ -4,6 +4,8 @@ const count = document.getElementById('count')
 const total = document.getElementById('total')
 const movieSelect = document.getElementById('movie')
 
+//populateUI() - Uncaught ReferenceError: Cannot access 'populateUI' before initialization
+
 let ticketPrice = +movieSelect.value // + changes the Type from string to number
 
 // Save Selected Movie index/ Price
@@ -27,6 +29,30 @@ const updateCounts = () => {
   total.innerText = selectedSeatsCount * ticketPrice
 }
 
+// Get Data from LocalStorage for UI
+const populateUI = () => {
+  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'))
+  
+
+  if(selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if(selectedSeats.indexOf(index) > -1) {
+        seat.classList.add('selected')
+      }
+    })
+  }
+  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex')
+
+  if(selectedMovieIndex !== null) {
+    movieSelect.selectedIndex = selectedMovieIndex
+  }
+}
+
+populateUI()
+
+
+
+
 // Movie Select (Update Price of ticket based on movie price)
 movieSelect.addEventListener('change', e => {
   ticketPrice = +e.target.value
@@ -46,4 +72,7 @@ container.addEventListener('click', e => {
 
     updateCounts()
   }
-})   
+})  
+
+// Initail
+updateCounts()
