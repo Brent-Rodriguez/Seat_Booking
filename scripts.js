@@ -29,11 +29,10 @@ const updateCounts = () => {
   total.innerText = selectedSeatsCount * ticketPrice
 }
 
-// Get Data from LocalStorage for UI
+// Get Data from LocalStorage for UI update
 const populateUI = () => {
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'))
   
-
   if(selectedSeats !== null && selectedSeats.length > 0) {
     seats.forEach((seat, index) => {
       if(selectedSeats.indexOf(index) > -1) {
@@ -47,10 +46,7 @@ const populateUI = () => {
     movieSelect.selectedIndex = selectedMovieIndex
   }
 }
-
 populateUI()
-
-
 
 
 // Movie Select (Update Price of ticket based on movie price)
@@ -59,8 +55,6 @@ movieSelect.addEventListener('change', e => {
   setMovieData(e.target.selectedIndex, e.target.value)
   updateCounts()
 })
-
-
 
 // Select seat event
 container.addEventListener('click', e => {
